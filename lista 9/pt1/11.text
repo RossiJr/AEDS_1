@@ -1,0 +1,77 @@
+/*
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int qtdPal(char* frase, int tamanho){
+    int contador=0;
+    for(int i=0; i<tamanho; i++){
+        if(frase[i] == ' '){
+            contador++;
+        }
+    }
+    
+    return contador+1;
+}
+char **alocarMatriz(int linhas, int colunas){
+    char **matriz = (char **)calloc (linhas, sizeof(char*));
+
+    for(int i=0; i<linhas; i++){
+        matriz[i] = (char*)calloc(colunas, sizeof(char));
+    }
+
+    return matriz;
+}
+void preencherMatriz(char **matriz, char* frase, int palavras, int letras){
+    int contador=0;
+    for(int i=0; i<palavras; i++){
+        for(int j=0; j<letras; j++, ++contador){
+            if(frase[contador] != ' '){
+                matriz[i][j] = frase[contador];
+            }
+            else{
+                contador++;
+                matriz[i][j] = (char)'\0';
+                break;
+            }
+        }
+    }
+}
+void lerMatriz(char** matriz, int palavras, int letras){
+    printf("\n");
+    for(int i=0; i<palavras; i++){
+        for(int j=0; j<letras; j++){
+            printf("%c", matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main(){
+    char frase[200];
+    printf("Insira uma frase de ate 200 caracteres: ");
+    fgets(frase, sizeof(frase), stdin);
+    int tamanho = strlen(frase);
+
+    int palavras = qtdPal(frase, tamanho);
+    int letras=200;
+
+    char** matriz = alocarMatriz(palavras, letras);
+
+    preencherMatriz(matriz, frase, palavras, letras);
+
+
+
+    lerMatriz(matriz, palavras, letras);
+
+
+
+
+
+    return 0;
+}
+*/
+
+/*
+//Conteúdo que eu domino é muito escasso para realizar esse exercicio
+*/
