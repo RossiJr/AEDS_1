@@ -1,24 +1,25 @@
-#include <math.h>
+/* 7-Faça um programa que receba o valor de um depósito e o valor da taxa de juros,calcule e mostre o valor do rendimento e o valor total depois do rendimento. */
+
 #include <stdio.h>
 
-int main()
-{
-    double pesagem;
-    double pesagemK;
-    printf("Insira a pesagem: ");
-    scanf("%lf", &pesagem);
-    pesagem += pesagem * 1000;
-    
-    int diasDecorridos;
-    printf("Insira a quantidade de dias decorridos: ");
-    scanf("%d", &diasDecorridos);    
-    pesagem = pesagem - (((pesagem * diasDecorridos) / 30)/ 2);
-    pesagemK = pesagem / 1000;
-    printf("Resta %.1f gramas de ração, Equivalente a: %.1f", pesagem, pesagemK);
-    
-    
-//Corrigir Código
+int main(){
+    float deposito;
+    float taxa;
+    float rendimento=0;
 
+    //input de dados
+    printf("Insira o valor do deposito: ");
+    scanf("%f", &deposito);
+    printf("Agora, insira o valor da taxa de juros, em decimal(ex: 0.1(0.1 == 10%%)): ");
+    scanf("%f", &taxa);
+
+    //processamentos de dados
+    rendimento = deposito * taxa;
+    deposito+=rendimento;
+
+    //output de dados
+    printf("\nO valor do rendimento foi: R$%.2f\n", rendimento);
+    printf("Ja o valor final e: R$%.2f", deposito);
 
     return 0;
 }
