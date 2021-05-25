@@ -2,10 +2,11 @@
 
 #include <stdio.h>
 
-int main(){
+int main()
+{
     float deposito;
     float taxa;
-    float rendimento=0;
+    float rendimento = 0;
 
     //input de dados
     printf("Insira o valor do deposito: ");
@@ -15,7 +16,7 @@ int main(){
 
     //processamentos de dados
     rendimento = deposito * taxa;
-    deposito+=rendimento;
+    deposito += rendimento;
 
     //output de dados
     printf("\nO valor do rendimento foi: R$%.2f\n", rendimento);
