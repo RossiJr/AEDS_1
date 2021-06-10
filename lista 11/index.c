@@ -7,18 +7,18 @@ int posMed = 0;
 
 
 /*** Structs utilizadas durante o codigo ***/
-typedef struct{                     //Paciente
+typedef struct{                                                                                 //Objeto - Paciente
     int codPaciente;
     char nome[50];
     char endereco[100];
     char telefone[12];
 } Paciente;
-typedef struct{                     //Medico
+typedef struct{                                                                                 //Objeto - Medico
     int codMed;
     char nome[50];
     char telefone[12];
 } Medico;
-typedef struct{                     //Consultas
+typedef struct{                                                                                 //Objeto - Consultas
     int numConsul;
     int diaDaSemana;
     char hora[5];
@@ -27,7 +27,9 @@ typedef struct{                     //Consultas
 } Consultas;
 /**** X ****/
 
-int identCOD(int **tabela, int codMed, int qtdMedicos){
+
+/****Funcoes de Teste ****/
+int identCOD(int **tabela, int codMed, int qtdMedicos){                                         //Identifica a posicao do codigo do medico na tabela
     for(int i=0; i<qtdMedicos; i++){
         if(tabela[0][i] == codMed)
         return i;
@@ -35,7 +37,7 @@ int identCOD(int **tabela, int codMed, int qtdMedicos){
 
     return -1;
 }
-int testeSemana(int **tabela, int dia, int codigo){
+int testeSemana(int **tabela, int dia, int codigo){                                             //Funcao que retorna uma flag para dia da semana de acordo com disposicao de consultas para o medico no dia -> 1 - Valido  |  0 - Invalido
     if(tabela[dia][codigo] == 1 || tabela[dia][codigo] == 0){
     return 1;
     }
@@ -43,9 +45,9 @@ int testeSemana(int **tabela, int dia, int codigo){
     return 0;
     }
 }
-int testeCodRepetido(int *codigos, int posicao, int qtd){
-    for(int i=0; i<qtd; i++){
-        if(i!=posicao){
+int testeCodRepetido(int *codigos, int posicao, int qtd){                                       //Funcao para teste de codigo de paciente ou medico repetido
+    for(int i=0; i<qtd; i++){                                   //percorre o vetor de codigos testando os codigos para ver se ha um igual
+        if(i!=posicao){                                         //desconsidera a posicao do codigo testante no vetor -> Nao considera ele mesmo como um codigo repetido
             if(codigos[posicao] == codigos[i]){
                 return 0;
             }
@@ -53,7 +55,26 @@ int testeCodRepetido(int *codigos, int posicao, int qtd){
     }
     return 1;
 }
-void cadastroPaciente(Paciente *pac, int *codigos, int posicao, int qtd){
+int diaValido(){                                                                                //teste para dia da semana valido  
+    int dia, flag = 1;
+    do{
+        if(flag == 1)
+        printf("\nInsira um dia da semana:\nSegunda-Feira: 1\t\tQuinta-Feira: 4\nTerca-Feira: 2\t\t\tSexta-Feira: 5\nQuarta-Feira: 3\n");
+        else
+        printf("Dia invalido, insira outro: ");
+        
+        scanf("%d", &dia);
+
+        if(dia<1 || dia>5)                          //contagem no programa e de 1 a 5, inclusive
+        flag = 0;
+    }while(dia<1 || dia>5);
+    return dia;
+}
+/**** X ****/
+
+
+/**** Funcoes de Cadastro ****/
+void cadastroPaciente(Paciente *pac, int *codigos, int posicao, int qtd){                       //Funcao para cadastro de pacientes
     int flag = 1;
 
 
@@ -94,9 +115,9 @@ void cadastroPaciente(Paciente *pac, int *codigos, int posicao, int qtd){
     (*pac).telefone[aux-1] = (int)0;
     /**** X ****/
 }
-void cadastroMedico(Medico *med, int *codigos, int posicao, int qtd, int **tabela){
+void cadastroMedico(Medico *med, int *codigos, int posicao, int qtd, int **tabela){             //Funcao para cadastro de medicos
     int flag = 1;
-    
+
 
     /**** Cadastro de Medicos ****/
     printf("\nInsira o codigo do medico: ");
@@ -134,7 +155,7 @@ void cadastroMedico(Medico *med, int *codigos, int posicao, int qtd, int **tabel
     (*med).telefone[aux-1] = (int)0;
     /**** X ****/
 }
-void cadastroConsulta(Consultas *consul, int **tabela, int qtd){
+void cadastroConsulta(Consultas *consul, int **tabela, int qtd){                                //Funcao para cadastro de consultas
     int flag1 = 0, flag2 = 0, aux;          //flag1(teste para codigo) | flag2(teste para dia da semana) | aux(facilitador de legibilidade)==consul.diaDaSemana
     int codigo;                             //codigo do medico
 
@@ -187,8 +208,12 @@ void cadastroConsulta(Consultas *consul, int **tabela, int qtd){
     scanf("%s", &(*consul).hora);
     /***** X *****/
 }
+/**** X ****/
 
-void medicoDia(Medico *med, int **tabela, int qtdMedico){
+
+/**** Funcoes de exibicao ****/
+void medicoDia(Medico *med, int **tabela, int qtdMedico){                                       //Abre um menu para visualizacao de quantos pacientes o medico vai atender em determinado dia                                     
+    /**** Menu(2) de selecao de medico - Sera impresso a quantidade de consultas que o medico tera em determinado dia ****/
     int opcMed = -1, diaSemana = -1;
     do{
         printf("Selecione o nome do medico de acordo com a numeracao:\n");
@@ -198,23 +223,23 @@ void medicoDia(Medico *med, int **tabela, int qtdMedico){
         printf("0 - Sair desta aba\n");
         do{
             scanf("%d", &opcMed);
-            if(opcMed < 0 || opcMed>qtdMedico)
+            if(opcMed < 0 || opcMed>qtdMedico)                                  //teste para opcao valido
                 printf("Opcao invalida, insira outra: ");
         }while(opcMed < 0 || opcMed>qtdMedico);
 
-        //med[opcMed - 1]
         if(opcMed != 0){
             printf("\nAgora insira o dia da semana que deseja consultar:\nSegunda-Feira: 1\t\tQuinta-Feira: 4\nTerca-Feira: 2\t\t\tSexta-Feira: 5\nQuarta-Feira: 3\n");
             do{
                 scanf("%d", &diaSemana);
-                if(diaSemana<=0 || diaSemana>5)
+                if(diaSemana<=0 || diaSemana>5)                                 //teste para dia valido
                     printf("Dia da semana invalido, insira outro: ");
             }while(diaSemana<=0 || diaSemana>5);
             printf("\nO medico, com codigo %d, cujo nome e %s, tem %d consultas agendada(as) para este dia!\n", med[opcMed-1].codMed, med[opcMed-1].nome, tabela[diaSemana][opcMed-1]);
         }
-    }while(opcMed!=0);
+    }while(opcMed!=0);                                                          //teste para acao de sair do menu
+    /**** X ****/
 }
-void identificadorDia(int dia){
+void identificadorDia(int dia){                                                                 //Imprime o dia da semana em formato string correspondente ao numero passado como parametro
     switch (dia){
     case 1:
     printf("segunda feira, ");
@@ -240,22 +265,7 @@ void identificadorDia(int dia){
         break;
     }
 }
-int diaValido(){
-    int dia, flag = 1;
-    do{
-        if(flag == 1)
-        printf("\nInsira um dia da semana:\nSegunda-Feira: 1\t\tQuinta-Feira: 4\nTerca-Feira: 2\t\t\tSexta-Feira: 5\nQuarta-Feira: 3\n");
-        else
-        printf("Dia invalido, insira outro: ");
-        
-        scanf("%d", &dia);
-
-        if(dia<1 || dia>5)
-        flag = 0;
-    }while(dia<1 || dia>5);
-    return dia;
-}
-void diaConsul(int **tabela, Medico *med, int qtdMedico, int dia){
+void diaConsul(int **tabela, Medico *med, int qtdMedico, int dia){                              //Funcao para informar quantos pacientes serao atendidos pelos medicos em determinado dia
     printf("\nNa ");
     identificadorDia(dia);
     printf("os seguintes medicos atenderao o seguinte numero de pacientes: \n");
@@ -263,11 +273,15 @@ void diaConsul(int **tabela, Medico *med, int qtdMedico, int dia){
         printf("%s - %d\n", med[i].nome, tabela[dia][i]);
     }
 }
+/**** X ****/
 
-void holding(){
+
+/**** Ferramentas usadas durante o codigo ****/
+void holding(){                                                                                 //funcao para exibir na tela o "Aperte qualquer botao para prosseguir..." funcional
     printf("\nAperte qualquer botao para prosseguir...");
     getch();
 }
+/**** X ****/
 
 int main(){
     int linhasMatriz = 6, diaSemana;
@@ -316,9 +330,10 @@ int main(){
 
     system("cls");
 
+    /**** Menu(1) de acoes possiveis acoes ****/
     int opcaoMenu1;
     do{
-    printf("Menu: \n1 - Consultas medico/dia\n2 - Consultas por dia\n0 - Sair\n");                           //menu 1
+    printf("Menu: \n1 - Consultas medico/dia\n2 - Consultas por dia\n0 - Sair\n");
     scanf("%d", &opcaoMenu1);
     switch (opcaoMenu1){
         case 1:
@@ -345,6 +360,7 @@ int main(){
         }
         system("cls");
     }while(opcaoMenu1!=0);
+    /**** X ****/
 
     return 0;
 }
