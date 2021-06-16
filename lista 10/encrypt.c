@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <conio.h>
+//flag == 0 -> sem criptografia           flag == 1 -> com criptografia
 int flag = 1;                                                                               //controle de quando esta ou nao criptografado
 
 void encrypt(char* string, int tamanho, FILE *arquivo){
@@ -12,7 +13,7 @@ void encrypt(char* string, int tamanho, FILE *arquivo){
             printf("\nErro na abertura do arquivo\n");
         }
         else{
-            for(int i=0; i<tamanho; i++){
+            for(int i=0; i<tamanho; i++){                                                   //criptografia caractere por caractere
                 aux = (int)string[i];
                 aux = ((((aux*2)-22)*2)-4)/4;                                               //formula de criptografia para cada letra
                 fputc(aux, arquivo);
@@ -35,9 +36,9 @@ void decrypt(FILE *arquivo){
                 fscanf(arquivo, "%s", string);
             }
             tamanho = strlen(string);
-            for(int i=0; i<tamanho; i++){
+            for(int i=0; i<tamanho; i++){                                                   //descriptografia caractere por caractere
                 aux = (int)string[i];
-                aux = ((((aux*4)+4)/2)+22)/2;                                               //descriptografia para cada letra
+                aux = ((((aux*4)+4)/2)+22)/2;                                               //formula para descriptografia
                 string[i] = (char)aux;
             }
             printf("\n%s\n", string);
