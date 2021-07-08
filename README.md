@@ -8,7 +8,3 @@ Feito para armazenar os meus exercícios feitos na linguagem C e C++ na discipli
     - stdlib.h -> Biblioteca padrão para controle de memória e conversão de valores em C/C++;
     - conio.h -> Biblioteca utilizada para desenhar na tela e manipular caracteres na tela em C/C++;
     - string.h -> Biblioteca utilizada para manipulação de stings em C/C++.
-
-  # Funções/Métodos utilizados:
-    - printf("text") -> Imprimir algo na tela;
-    - scanf("%..", &..) -> Ler valor e atribuí-lo à variável;
